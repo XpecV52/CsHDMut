@@ -1,18 +1,22 @@
-class W_Single extends Single;
-
+/*******************************************************************************
+ * W_Single 
+ *******************************************************************************/
+class W_Single extends Single
+    config;
 
 simulated function bool PutDown()
 {
-  if (Instigator.PendingWeapon.Class == class'Utility'.static.DualVariantOf(Class))
-  {
-    bIsReloading = false;
-  }
-  return super(KFWeapon).PutDown();
+    
+    if(Instigator.PendingWeapon.Class == class'CsHDMut'.static.DualVariantOf(Class))
+    {
+        bIsReloading = false;
+    }
+    return super(KFWeapon).PutDown();
+       
 }
-
 
 defaultproperties
 {
-  FireModeClass(0)=class'W_SingleFire'
-  PickupClass=class'W_SinglePickup'
+    FireModeClass=class'W_SingleFire'
+    PickupClass=class'W_SinglePickup'
 }

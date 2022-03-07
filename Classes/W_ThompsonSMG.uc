@@ -1,8 +1,11 @@
-class W_ThompsonSMG extends ThompsonSMG;
-
+/*******************************************************************************
+ * W_ThompsonSMG 
+ *******************************************************************************/
+class W_ThompsonSMG extends ThompsonSMG
+    config(User);
 
 defaultproperties
 {
-  FireModeClass(0)=class'W_ThompsonFire'
-  PickupClass=class'W_ThompsonPickup'
+    FireModeClass=class'W_ThompsonFire'
+    PickupClass=class'W_ThompsonPickup'
 }

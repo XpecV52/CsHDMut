@@ -1,10 +1,9 @@
 /*******************************************************************************
- * W_MP7MPickup 
+ * W_NeonSCARMK17Fire 
  *******************************************************************************/
-class W_MP7MPickup extends MP7MPickup
-    config;
+class W_NeonSCARMK17Fire extends W_SCARMK17Fire;
 
 defaultproperties
 {
-    InventoryType=class'W_MP7MMedicGun'
+    AmmoClass=Class'KFMod.NeonSCARMK17Ammo'
 }

@@ -1,8 +1,11 @@
-class W_SPSniperRifle extends SPSniperRifle;
-
+/*******************************************************************************
+ * W_SPSniperRifle 
+ *******************************************************************************/
+class W_SPSniperRifle extends SPSniperRifle
+    config(User);
 
 defaultproperties
 {
-  FireModeClass(0)=class'W_SPSniperFire'
-  PickupClass=class'W_SPSniperPickup'
+    FireModeClass=class'W_SPSniperFire'
+    PickupClass=class'W_SPSniperPickup'
 }

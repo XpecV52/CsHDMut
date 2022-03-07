@@ -1,8 +1,11 @@
-class W_ThompsonDrumSMG extends ThompsonDrumSMG;
-
+/*******************************************************************************
+ * W_ThompsonDrumSMG 
+ *******************************************************************************/
+class W_ThompsonDrumSMG extends ThompsonDrumSMG
+    config(User);
 
 defaultproperties
 {
-  FireModeClass(0)=class'W_ThompsonDrumFire'
-  PickupClass=class'W_ThompsonDrumPickup'
+    FireModeClass=class'W_ThompsonDrumFire'
+    PickupClass=class'W_ThompsonDrumPickup'
 }

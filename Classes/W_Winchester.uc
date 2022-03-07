@@ -1,8 +1,11 @@
-class W_Winchester extends Winchester;
-
+/*******************************************************************************
+ * W_Winchester 
+ *******************************************************************************/
+class W_Winchester extends Winchester
+    config;
 
 defaultproperties
 {
-  FireModeClass(0)=class'W_WinchesterFire'
-  PickupClass=class'W_WinchesterPickup'
+    FireModeClass=class'W_WinchesterFire'
+    PickupClass=class'W_WinchesterPickup'
 }

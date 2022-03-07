@@ -1,8 +1,11 @@
-class W_SCARMK17AssaultRifle extends SCARMK17AssaultRifle;
-
+/*******************************************************************************
+ * W_SCARMK17AssaultRifle 
+ *******************************************************************************/
+class W_SCARMK17AssaultRifle extends SCARMK17AssaultRifle
+    config(User);
 
 defaultproperties
 {
-  FireModeClass(0)=class'W_SCARMK17Fire'
-  PickupClass=class'W_SCARMK17Pickup'
+    FireModeClass=class'W_SCARMK17Fire'
+    PickupClass=class'W_SCARMK17Pickup'
 }

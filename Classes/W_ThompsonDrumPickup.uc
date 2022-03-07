@@ -1,7 +1,10 @@
-class W_ThompsonDrumPickup extends ThompsonDrumPickup;
-
+/*******************************************************************************
+ * W_ThompsonDrumPickup 
+ *******************************************************************************/
+class W_ThompsonDrumPickup extends ThompsonDrumPickup
+    config;
 
 defaultproperties
 {
-  InventoryType=class'W_ThompsonDrumSMG'
+    InventoryType=class'W_ThompsonDrumSMG'
 }

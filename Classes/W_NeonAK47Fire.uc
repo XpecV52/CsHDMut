@@ -1,10 +1,9 @@
 /*******************************************************************************
- * W_MP7MPickup 
+ * W_NeonAK47Fire 
  *******************************************************************************/
-class W_MP7MPickup extends MP7MPickup
-    config;
+class W_NeonAK47Fire extends W_AK47Fire;
 
 defaultproperties
 {
-    InventoryType=class'W_MP7MMedicGun'
+    AmmoClass=Class'KFMod.NeonAK47Ammo'
 }
