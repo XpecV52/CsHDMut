@@ -1,9 +1,10 @@
 /*******************************************************************************
- * W_GoldenAK47Fire 
+ * W_MKB42Pickup 
  *******************************************************************************/
-class W_GoldenAK47Fire extends W_AK47Fire;
+class W_MKB42Pickup extends MKB42Pickup
+    config;
 
 defaultproperties
 {
-    AmmoClass=Class'KFMod.GoldenAK47Ammo'
+    InventoryType=class'W_MKB42AssaultRifle'
 }

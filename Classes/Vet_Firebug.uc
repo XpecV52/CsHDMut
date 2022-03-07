@@ -1,5 +1,8 @@
 class Vet_Firebug extends KFVetFirebug
-  abstract;
-
-
-static function AddDefaultInventory(KFPlayerReplicationInfo KFPRI, Pawn P){}
+    abstract;
+   
+defaultproperties
+{
+    //  OnHUDIcon=Texture'XpecHUD_T.Perks.Perk_Firebug'
+    //  OnHUDGoldIcon=Texture'XpecHUD_T.Perks.Perk_Firebug_Gold'
+}

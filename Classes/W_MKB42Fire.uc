@@ -1,7 +1,7 @@
 /*******************************************************************************
- * W_MP5MFire 
+ * W_MKB42Fire 
  *******************************************************************************/
-class W_MP5MFire extends MP5MFire;
+class W_MKB42Fire extends MKB42Fire;
 
 function DoFireEffect()
 {

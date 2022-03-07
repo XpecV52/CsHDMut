@@ -1,8 +1,11 @@
-class W_M4203AssaultRifle extends M4203AssaultRifle;
-
+/*******************************************************************************
+ * W_M4203AssaultRifle 
+ *******************************************************************************/
+class W_M4203AssaultRifle extends M4203AssaultRifle
+    config(User);
 
 defaultproperties
 {
-  FireModeClass(0)=class'W_M4203BulletFire'
-  PickupClass=class'W_M4203Pickup'
+    FireModeClass=class'W_M4203BulletFire'
+    PickupClass=class'W_M4203Pickup'
 }

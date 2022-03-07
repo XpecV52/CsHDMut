@@ -1,5 +1,8 @@
 class Vet_SupportSpec extends KFVetSupportSpec
-  abstract;
-
-
-static function AddDefaultInventory(KFPlayerReplicationInfo KFPRI, Pawn P){}
+    abstract;
+ 
+defaultproperties
+{
+    //  OnHUDIcon=Texture'XpecHUD_T.Perks.Perk_Support'
+    //  OnHUDGoldIcon=Texture'XpecHUD_T.Perks.Perk_Support_Gold'
+}

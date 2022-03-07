@@ -1,5 +1,9 @@
 class Vet_Berserker extends KFVetBerserker
-  abstract;
+    abstract;
 
 
-static function AddDefaultInventory(KFPlayerReplicationInfo KFPRI, Pawn P){}
+defaultproperties
+{
+    //  OnHUDIcon=Texture'XpecHUD_T.Perks.Perk_Berserker'
+    //  OnHUDGoldIcon=Texture'XpecHUD_T.Perks.Perk_Berserker_Gold'
+}

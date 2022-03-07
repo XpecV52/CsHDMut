@@ -1,33 +1,38 @@
-class W_DeaglePickup extends DeaglePickup;
+/*******************************************************************************
+ * W_DeaglePickup 
+ *******************************************************************************/
+class W_DeaglePickup extends DeaglePickup
+    config;
 
-
-// COPY-PASTE CODE BELOW FOR ALL DUAL VARIANT WEAPON PICKUP CLASSES!!!
 function Inventory SpawnCopy(Pawn Other)
 {
-  local Inventory Inv;
+    local Inventory Inv;
 
-  for (Inv = Other.Inventory; Inv != none; Inv = Inv.Inventory)
-  {
-    if (Inv.Class == InventoryType)
+    
+    for(Inv = Other.Inventory;Inv != none;Inv = Inv.Inventory)
     {
-      if (Inventory != none)
-      {
-        Inventory.Destroy();
-      }
-      InventoryType = class'Utility'.static.DualVariantOf(InventoryType);
-      AmmoAmount[0] += KFWeapon(Inv).AmmoAmount(0);
-      MagAmmoRemaining += KFWeapon(Inv).MagAmmoRemaining;
-      Inv.Destroyed();
-      Inv.Destroy();
-      return super(Pickup).SpawnCopy(Other);
+        
+        if(Inv.Class == InventoryType)
+        {
+            
+            if(Inventory != none)
+            {
+                Inventory.Destroy();
+            }
+            InventoryType = class'CsHDMut'.static.DualVariantOf(InventoryType);
+            AmmoAmount[0] += KFWeapon(Inv).AmmoAmount(0);
+            MagAmmoRemaining += KFWeapon(Inv).MagAmmoRemaining;
+            Inv.Destroyed();
+            Inv.Destroy();
+            return super(Pickup).SpawnCopy(Other);
+        }
     }
-  }
-  InventoryType = default.InventoryType;
-  return super(Pickup).SpawnCopy(Other);
+    InventoryType = default.InventoryType;
+    return super(Pickup).SpawnCopy(Other);
+       
 }
-
 
 defaultproperties
 {
-  InventoryType=class'W_Deagle'
+    InventoryType=class'W_Deagle'
 }

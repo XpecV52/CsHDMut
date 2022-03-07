@@ -1,8 +1,11 @@
-class W_M14EBRBattleRifle extends M14EBRBattleRifle;
-
+/*******************************************************************************
+ * W_M14EBRBattleRifle 
+ *******************************************************************************/
+class W_M14EBRBattleRifle extends M14EBRBattleRifle
+    config(User);
 
 defaultproperties
 {
-  FireModeClass(0)=class'W_M14EBRFire'
-  PickupClass=class'W_M14EBRPickup'
+    FireModeClass=class'W_M14EBRFire'
+    PickupClass=class'W_M14EBRPickup'
 }

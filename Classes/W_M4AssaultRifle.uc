@@ -1,8 +1,11 @@
-class W_M4AssaultRifle extends M4AssaultRifle;
-
+/*******************************************************************************
+ * W_M4AssaultRifle 
+ *******************************************************************************/
+class W_M4AssaultRifle extends M4AssaultRifle
+    config(User);
 
 defaultproperties
 {
-  FireModeClass(0)=class'W_M4Fire'
-  PickupClass=class'W_M4Pickup'
+    FireModeClass=class'W_M4Fire'
+    PickupClass=class'W_M4Pickup'
 }

@@ -1,7 +1,10 @@
-class W_DualMK23Pickup extends DualMK23Pickup;
-
+/*******************************************************************************
+ * W_DualMK23Pickup 
+ *******************************************************************************/
+class W_DualMK23Pickup extends DualMK23Pickup
+    config;
 
 defaultproperties
 {
-  InventoryType=class'W_DualMK23Pistol'
+    InventoryType=class'W_DualMK23Pistol'
 }

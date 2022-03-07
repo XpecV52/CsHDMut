@@ -1,5 +1,8 @@
 class Vet_Demolitions extends KFVetDemolitions
-  abstract;
-
-
-static function AddDefaultInventory(KFPlayerReplicationInfo KFPRI, Pawn P){}
+    abstract;
+    
+defaultproperties
+{
+    //  OnHUDIcon=Texture'XpecHUD_T.Perks.Perk_Demolition'
+    //  OnHUDGoldIcon=Texture'XpecHUD_T.Perks.Perk_Demolition_Gold'
+}

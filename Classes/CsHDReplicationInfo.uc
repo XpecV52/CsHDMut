@@ -1,174 +1,244 @@
-class CsHDReplicationInfo extends ReplicationInfo
-  dependson(ZED_Clot)
-  dependson(ZED_Gorefast)
-  dependson(ZED_Bloat)
-  dependson(ZED_Crawler)
-  dependson(ZED_Stalker)
-  dependson(ZED_Siren)
-  dependson(ZED_Husk)
-  dependson(ZED_Scrake)
-  dependson(ZED_Fleshpound)
-  dependson(ZED_Patriarch);
-
+class CsHDReplicationInfo extends ReplicationInfo;
 
 var float AdditionalScale;
 
-
 replication
 {
-  reliable if (bNetInitial && Role == ROLE_Authority)
-    AdditionalScale;
+    reliable if(bNetInitial && Role == ROLE_Authority)
+        AdditionalScale;
 
-  reliable if (Role < ROLE_Authority)
-    ServerDamagePawn, ServerDealDamage, ServerHealTarget, ServerUpdateHit;
+    reliable if(Role < ROLE_Authority)
+        ServerDamagePawn, ServerDealDamage, 
+        ServerHealTarget, ServerUpdateHit;
 }
-
 
 simulated function ServerDamagePawn(KFPawn injured, int Damage, Pawn instigatedBy, Vector HitLocDiff, Vector Momentum, class<DamageType> DamageType, array<int> PointsHit)
 {
-  if (injured == none)
-  {
-    return;
-  }
-  injured.ProcessLocationalDamage(Damage, instigatedBy, injured.Location + HitLocDiff, Momentum, DamageType, PointsHit);
-}
-
-
-simulated function bool IsHeadshotClient(Actor other, Vector HitLoc, Vector ray)
-{
-  if (other == none || !other.IsA('KFMonster'))
-    return false;
-
-  if (other.IsA('ZED_Clot'))
-    return ZED_Clot(other).IsHeadshotClient(HitLoc, ray, AdditionalScale);
-  else if (other.IsA('ZED_Gorefast'))
-    return ZED_Gorefast(other).IsHeadshotClient(HitLoc, ray, AdditionalScale);
-  else if (other.IsA('ZED_Bloat'))
-    return ZED_Bloat(other).IsHeadshotClient(HitLoc, ray, AdditionalScale);
-  else if (other.IsA('ZED_Crawler'))
-    return ZED_Crawler(other).IsHeadshotClient(HitLoc, ray, AdditionalScale);
-  else if (other.IsA('ZED_Stalker'))
-    return ZED_Stalker(other).IsHeadshotClient(HitLoc, ray, AdditionalScale);
-  else if (other.IsA('ZED_Siren'))
-    return ZED_Siren(other).IsHeadshotClient(HitLoc, ray, AdditionalScale);
-  else if (other.IsA('ZED_Husk'))
-    return ZED_Husk(other).IsHeadshotClient(HitLoc, ray, AdditionalScale);
-  else if (other.IsA('ZED_Scrake'))
-    return ZED_Scrake(other).IsHeadshotClient(HitLoc, ray, AdditionalScale);
-  else if (other.IsA('ZED_Fleshpound'))
-    return ZED_Fleshpound(other).IsHeadshotClient(HitLoc, ray, AdditionalScale);
-  else if (other.IsA('ZED_Patriarch'))
-    return ZED_Patriarch(other).IsHeadshotClient(HitLoc, ray, AdditionalScale);
-  else
-    return false;
-}
-
-
-simulated function ServerDealDamage(Actor other, int Damage, Pawn instigatedBy, Vector HitLocDiff, Vector Momentum, class<DamageType> DamageType, optional bool bIsHeadshot)
-{
-  if (other == none)
-    return;
-
-  if (other.IsA('KFMonster'))
-  {
-    if (other.IsA('ZED_Clot'))
-      ZED_Clot(other).TakeDamageClient(Damage, instigatedBy, other.Location + HitLocDiff, Momentum, DamageType, bIsHeadshot);
-    else if (other.IsA('ZED_Gorefast'))
-      ZED_Gorefast(other).TakeDamageClient(Damage, instigatedBy, other.Location + HitLocDiff, Momentum, DamageType, bIsHeadshot);
-    else if (other.IsA('ZED_Bloat'))
-      ZED_Bloat(other).TakeDamageClient(Damage, instigatedBy, other.Location + HitLocDiff, Momentum, DamageType, bIsHeadshot);
-    else if (other.IsA('ZED_Crawler'))
-      ZED_Crawler(other).TakeDamageClient(Damage, instigatedBy, other.Location + HitLocDiff, Momentum, DamageType, bIsHeadshot);
-    else if (other.IsA('ZED_Stalker'))
-      ZED_Stalker(other).TakeDamageClient(Damage, instigatedBy, other.Location + HitLocDiff, Momentum, DamageType, bIsHeadshot);
-    else if (other.IsA('ZED_Siren'))
-      ZED_Siren(other).TakeDamageClient(Damage, instigatedBy, other.Location + HitLocDiff, Momentum, DamageType, bIsHeadshot);
-    else if (other.IsA('ZED_Husk'))
-      ZED_Husk(other).TakeDamageClient(Damage, instigatedBy, other.Location + HitLocDiff, Momentum, DamageType, bIsHeadshot);
-    else if (other.IsA('ZED_Scrake'))
-      ZED_Scrake(other).TakeDamageClient(Damage, instigatedBy, other.Location + HitLocDiff, Momentum, DamageType, bIsHeadshot);
-    else if (other.IsA('ZED_Fleshpound'))
-      ZED_Fleshpound(other).TakeDamageClient(Damage, instigatedBy, other.Location + HitLocDiff, Momentum, DamageType, bIsHeadshot);
-    else if (other.IsA('ZED_Patriarch'))
-      ZED_Patriarch(other).TakeDamageClient(Damage, instigatedBy, other.Location + HitLocDiff, Momentum, DamageType, bIsHeadshot);
-  }
-  else
-  {
-    other.TakeDamage(Damage, instigatedBy, other.Location + HitLocDiff, Momentum, DamageType);
-  }
-}
-
-
-simulated function ServerUpdateHit(Actor TPActor, Actor HitActor, Vector ClientHitLoc, Vector HitNormal, optional Vector HitLocDiff)
-{
-  local KFWeaponAttachment WeapAttach;
-
-  WeapAttach = KFWeaponAttachment(TPActor);
-
-  if (WeapAttach != none)
-  {
-    if (HitLocDiff == vect(0.0, 0.0, 0.0))
+    if(injured == none)
     {
-      WeapAttach.UpdateHit(HitActor, ClientHitLoc, HitNormal);
+        return;
+    }
+    injured.ProcessLocationalDamage(Damage, instigatedBy, injured.Location + HitLocDiff, Momentum, DamageType, PointsHit);
+  
+}
+
+simulated function bool IsHeadshotClient(Actor Other, Vector HitLoc, Vector ray)
+{
+    if(KFMonster(Other) != none)
+    {
+        if(ZED_Clot(Other) != none)
+        {
+            return ZED_Clot(Other).IsHeadshotClient(HitLoc, ray, AdditionalScale);
+        }
+        else
+        {
+            if(ZED_Gorefast(Other) != none)
+            {
+                return ZED_Gorefast(Other).IsHeadshotClient(HitLoc, ray, AdditionalScale);
+            }
+            else
+            {
+                if(ZED_Bloat(Other) != none)
+                {
+                    return ZED_Bloat(Other).IsHeadshotClient(HitLoc, ray, AdditionalScale);
+                }
+                else
+                {
+                    if(ZED_Crawler(Other) != none)
+                    {
+                        return ZED_Crawler(Other).IsHeadshotClient(HitLoc, ray, AdditionalScale);
+                    }
+                    else
+                    {
+                        if(ZED_Stalker(Other) != none)
+                        {
+                            return ZED_Stalker(Other).IsHeadshotClient(HitLoc, ray, AdditionalScale);
+                        }
+                        else
+                        {
+                            if(ZED_Siren(Other) != none)
+                            {
+                                return ZED_Siren(Other).IsHeadshotClient(HitLoc, ray, AdditionalScale);
+                            }
+                            else
+                            {
+                                if(ZED_Husk(Other) != none)
+                                {
+                                    return ZED_Husk(Other).IsHeadshotClient(HitLoc, ray, AdditionalScale);
+                                }
+                                else
+                                {
+                                    if(ZED_Scrake(Other) != none)
+                                    {
+                                        return ZED_Scrake(Other).IsHeadshotClient(HitLoc, ray, AdditionalScale);
+                                    }
+                                    else
+                                    {
+                                        if(ZED_Fleshpound(Other) != none)
+                                        {
+                                            return ZED_Fleshpound(Other).IsHeadshotClient(HitLoc, ray, AdditionalScale);
+                                        }
+                                        else
+                                        {
+                                            if(ZED_Patriarch(Other) != none)
+                                            {
+                                                return ZED_Patriarch(Other).IsHeadshotClient(HitLoc, ray, AdditionalScale);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
+
+simulated function ServerDealDamage(Actor Other, int Damage, Pawn instigatedBy, Vector HitLocDiff, Vector Momentum, class<DamageType> DamageType, optional bool bIsHeadshot)
+{
+    if(Other == none)
+    {
+        return;
+    }
+    if(KFMonster(Other) != none)
+    {
+        if(ZED_Clot(Other) != none)
+        {
+            ZED_Clot(Other).TakeDamageClient(Damage, instigatedBy, Other.Location + HitLocDiff, Momentum, DamageType, bIsHeadshot);
+        }
+        else
+        {
+            if(ZED_Gorefast(Other) != none)
+            {
+                ZED_Gorefast(Other).TakeDamageClient(Damage, instigatedBy, Other.Location + HitLocDiff, Momentum, DamageType, bIsHeadshot);
+            }
+            else
+            {
+                if(ZED_Bloat(Other) != none)
+                {
+                    ZED_Bloat(Other).TakeDamageClient(Damage, instigatedBy, Other.Location + HitLocDiff, Momentum, DamageType, bIsHeadshot);
+                }
+                else
+                {
+                    if(ZED_Crawler(Other) != none)
+                    {
+                        ZED_Crawler(Other).TakeDamageClient(Damage, instigatedBy, Other.Location + HitLocDiff, Momentum, DamageType, bIsHeadshot);
+                    }
+                    else
+                    {
+                        if(ZED_Stalker(Other) != none)
+                        {
+                            ZED_Stalker(Other).TakeDamageClient(Damage, instigatedBy, Other.Location + HitLocDiff, Momentum, DamageType, bIsHeadshot);
+                        }
+                        else
+                        {
+                            if(ZED_Siren(Other) != none)
+                            {
+                                ZED_Siren(Other).TakeDamageClient(Damage, instigatedBy, Other.Location + HitLocDiff, Momentum, DamageType, bIsHeadshot);
+                            }
+                            else
+                            {
+                                if(ZED_Husk(Other) != none)
+                                {
+                                    ZED_Husk(Other).TakeDamageClient(Damage, instigatedBy, Other.Location + HitLocDiff, Momentum, DamageType, bIsHeadshot);
+                                }
+                                else
+                                {
+                                    if(ZED_Scrake(Other) != none)
+                                    {
+                                        ZED_Scrake(Other).TakeDamageClient(Damage, instigatedBy, Other.Location + HitLocDiff, Momentum, DamageType, bIsHeadshot);
+                                    }
+                                    else
+                                    {
+                                        if(ZED_Fleshpound(Other) != none)
+                                        {
+                                            ZED_Fleshpound(Other).TakeDamageClient(Damage, instigatedBy, Other.Location + HitLocDiff, Momentum, DamageType, bIsHeadshot);
+                                        }
+                                        else
+                                        {
+                                            if(ZED_Patriarch(Other) != none)
+                                            {
+                                                ZED_Patriarch(Other).TakeDamageClient(Damage, instigatedBy, Other.Location + HitLocDiff, Momentum, DamageType, bIsHeadshot);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     else
     {
-      WeapAttach.UpdateHit(HitActor, HitActor.Location + HitLocDiff, HitNormal);
+        Other.TakeDamage(Damage, instigatedBy, Other.Location + HitLocDiff, Momentum, DamageType);
     }
-  }
 }
 
-
-simulated function ServerHealTarget(class<HealingProjectile> Dart, Actor other, Vector HitLocDiff)
+simulated function ServerUpdateHit(Actor TPActor, Actor HitActor, Vector ClientHitLoc, Vector HitNormal, optional Vector HitLocDiff)
 {
-  local KFPlayerReplicationInfo PRI;
-  local KFHumanPawn Healed;
-  local float HealSum;
-  local int MedicReward;
+    local KFWeaponAttachment WeapAttach;
 
-  Healed = KFHumanPawn(other);
-
-  if (Healed == none)
-  {
-    return;
-  }
-
-  if ((((Controller(Owner) != none) && Healed.Health > 0) && float(Healed.Health) < Healed.HealthMax) && Healed.bCanBeHealed)
-  {
-    MedicReward = Dart.default.HealBoostAmount;
-    PRI = KFPlayerReplicationInfo(Controller(Owner).PlayerReplicationInfo);
-
-    if ((PRI != none) && PRI.ClientVeteranSkill != none)
+    WeapAttach = KFWeaponAttachment(TPActor);
+    if(WeapAttach != none)
     {
-      MedicReward *= PRI.ClientVeteranSkill.static.GetHealPotency(PRI);
+        if(HitLocDiff == vect(0.0, 0.0, 0.0))
+        {
+            WeapAttach.UpdateHit(HitActor, ClientHitLoc, HitNormal);
+        }
+        else
+        {
+            WeapAttach.UpdateHit(HitActor, HitActor.Location + HitLocDiff, HitNormal);
+        }
     }
-    HealSum = float(MedicReward);
+}
 
-    if (((float(Healed.Health) + Healed.healthToGive) + float(MedicReward)) > Healed.HealthMax)
+simulated function ServerHealTarget(class<HealingProjectile> Dart, Actor Other, Vector HitLocDiff)
+{
+    local KFPlayerReplicationInfo PRI;
+    local KFHumanPawn Healed;
+    local float HealSum;
+    local int MedicReward;
+
+    Healed = KFHumanPawn(Other);
+    if(Healed == none)
     {
-      MedicReward = int(Healed.HealthMax - (float(Healed.Health) + Healed.healthToGive));
-
-      if (MedicReward < 0)
-      {
-        MedicReward = 0;
-      }
+        return;
     }
-    Healed.GiveHealth(int(HealSum), int(Healed.HealthMax));
-
-    if (PRI != none)
+    if((((Controller(Owner) != none) && Healed.Health > 0) && float(Healed.Health) < Healed.HealthMax) && Healed.bCanBeHealed)
     {
-      MedicReward = int((FMin(float(MedicReward), Healed.HealthMax) / Healed.HealthMax) * float(60));
-      PRI.ReceiveRewardForHealing(MedicReward, Healed);
-
-      if (KFHumanPawn(Controller(Owner).Pawn) != none)
-      {
-        KFHumanPawn(Controller(Owner).Pawn).AlphaAmount = 255;
-      }
-
-      if (KFMedicGun(Controller(Owner).Pawn.Weapon) != none)
-      {
-        KFMedicGun(Controller(Owner).Pawn.Weapon).ClientSuccessfulHeal(Healed.GetPlayerName());
-      }
+        MedicReward = Dart.default.HealBoostAmount;
+        PRI = KFPlayerReplicationInfo(Controller(Owner).PlayerReplicationInfo);
+        if((PRI != none) && PRI.ClientVeteranSkill != none)
+        {
+            MedicReward *= PRI.ClientVeteranSkill.static.GetHealPotency(PRI);
+        }
+        HealSum = float(MedicReward);
+        if(((float(Healed.Health) + Healed.healthToGive) + float(MedicReward)) > Healed.HealthMax)
+        {
+            MedicReward = int(Healed.HealthMax - (float(Healed.Health) + Healed.healthToGive));
+            if(MedicReward < 0)
+            {
+                MedicReward = 0;
+            }
+        }
+        Healed.GiveHealth(int(HealSum), int(Healed.HealthMax));
+        if(PRI != none)
+        {
+            MedicReward = int((FMin(float(MedicReward), Healed.HealthMax) / Healed.HealthMax) * float(60));
+            PRI.ReceiveRewardForHealing(MedicReward, Healed);
+            if(KFHumanPawn(Controller(Owner).Pawn) != none)
+            {
+                KFHumanPawn(Controller(Owner).Pawn).AlphaAmount = 255;
+            }
+            if(KFMedicGun(Controller(Owner).Pawn.Weapon) != none)
+            {
+                KFMedicGun(Controller(Owner).Pawn.Weapon).ClientSuccessfulHeal(Healed.GetPlayerName());
+            }
+        }
     }
-  }
 }

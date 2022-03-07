@@ -1,18 +1,22 @@
-class W_Magnum44Pistol extends Magnum44Pistol;
-
+/*******************************************************************************
+ * W_Magnum44Pistol 
+ *******************************************************************************/
+class W_Magnum44Pistol extends Magnum44Pistol
+    config;
 
 simulated function bool PutDown()
 {
-  if (Instigator.PendingWeapon.Class == class'Utility'.static.DualVariantOf(Class))
-  {
-    bIsReloading = false;
-  }
-  return super(KFWeapon).PutDown();
+    
+    if(Instigator.PendingWeapon.Class == class'CsHDMut'.static.DualVariantOf(Class))
+    {
+        bIsReloading = false;
+    }
+    return super(KFWeapon).PutDown();
+       
 }
-
 
 defaultproperties
 {
-  FireModeClass(0)=class'W_Magnum44Fire'
-  PickupClass=class'W_Magnum44Pickup'
+    FireModeClass=class'W_Magnum44Fire'
+    PickupClass=class'W_Magnum44Pickup'
 }
