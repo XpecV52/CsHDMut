@@ -12,7 +12,7 @@ simulated function PostBeginPlay()
       AuxCollisionCylinder = spawn(class'KFBulletWhipAttachment', self);
       AuxCollisionCylinder.bHardAttach = true;
       AuxCollisionCylinder.SetLocation(Location);
-      AuxCollisionCylinder.SetPhysics(0);
+      AuxCollisionCylinder.SetPhysics(PHYS_None);
       AuxCollisionCylinder.SetBase(self);
     }
     SavedAuxCollision = AuxCollisionCylinder.bCollideActors;
@@ -144,5 +144,5 @@ function ServerSellWeapon(class<Weapon> WClass)
 defaultproperties
 {
   RequiredEquipment[1]="CsHDMut.W_Single"
-  RequiredEquipment[3]="CsHDMut.W_Syringe"
+//   RequiredEquipment[3]="CsHDMut.W_Syringe"
 }
