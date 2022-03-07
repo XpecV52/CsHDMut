@@ -17,7 +17,7 @@ simulated function PostBeginPlay()
             MyExtCollision.bHardAttach = true;
             AttachPos = Location + (ColOffset >> Rotation);
             MyExtCollision.SetLocation(AttachPos);
-            MyExtCollision.SetPhysics(0);
+            MyExtCollision.SetPhysics(PHYS_None);
             MyExtCollision.SetBase(self);
             SavedExtCollision = MyExtCollision.bCollideActors;
         }
@@ -228,20 +228,16 @@ state ZombieDying
         local name HitBone;
         local float HitBoneDist;
 
-        // End:0x16
         if(bFrozenBody || bRubbery)
         {
             return;
         }
-        // End:0x203
-        if(Physics == 14)
+        if(Physics == PHYS_Karma)
         {
-            // End:0x31
             if(bDeRes)
             {
                 return;
             }
-            // End:0xA9
             if(DamageType.default.bThrowRagdoll)
             {
                 shotDir = Normal(Momentum);
@@ -249,21 +245,16 @@ state ZombieDying
                 PushAngVel = Normal(shotDir Cross vect(0.0, 0.0, 1.0)) * float(-18000);
                 KSetSkelVel(PushLinVel, PushAngVel);
             }
-            // End:0x203
             else
             {
-                // End:0x1DF
                 if(DamageType.default.bRagdollBullet)
                 {
-                    // End:0xED
                     if(Momentum == vect(0.0, 0.0, 0.0))
                     {
                         Momentum = HitLocation - instigatedBy.Location;
                     }
-                    // End:0x187
                     if(FRand() < 0.650)
                     {
-                        // End:0x11E
                         if(Velocity.Z <= float(0))
                         {
                             PushLinVel = vect(0.0, 0.0, 40.0);
@@ -276,13 +267,11 @@ state ZombieDying
                     }
                     PushLinVel = RagShootStrength * Normal(Momentum);
                     KAddImpulse(PushLinVel, HitLocation);
-                    // End:0x1DC
                     if((LifeSpan > float(0)) && LifeSpan < (DeResTime + 2.0))
                     {
                         LifeSpan += 0.20;
                     }
                 }
-                // End:0x203
                 else
                 {
                     PushLinVel = RagShootStrength * Normal(Momentum);
@@ -290,28 +279,23 @@ state ZombieDying
                 }
             }
         }
-        // End:0x350
         if(Damage > 0)
         {
             Health -= Damage;
-            // End:0x229
             if(bIsHeadshot)
             {
                 RemoveHead();
             }
             hitRay = vect(0.0, 0.0, 0.0);
-            // End:0x283
             if(instigatedBy != none)
             {
                 hitRay = Normal((HitLocation - instigatedBy.Location) + (vect(0.0, 0.0, 1.0) * instigatedBy.EyeHeight));
             }
             CalcHitLoc(HitLocation, hitRay, HitBone, HitBoneDist);
-            // End:0x2E4
             if(instigatedBy != none)
             {
                 HitNormal = Normal((Normal(instigatedBy.Location - HitLocation) + (VRand() * 0.20)) + vect(0.0, 0.0, 2.80));
             }
-            // End:0x313
             else
             {
                 HitNormal = Normal((vect(0.0, 0.0, 1.0) + (VRand() * 0.20)) + vect(0.0, 0.0, 2.80));
@@ -319,12 +303,9 @@ state ZombieDying
             PlayHit(float(Damage), instigatedBy, HitLocation, DamageType, Momentum);
             DoDamageFX(HitBone, Damage, DamageType, rotator(HitNormal));
         }
-        // End:0x3B8
-        if(((DamageType.default.DamageOverlayMaterial != none) && Level.DetailMode != 0) && !Level.bDropDetail)
+        if(((DamageType.default.DamageOverlayMaterial != none) && Level.DetailMode != DM_Low) && !Level.bDropDetail)
         {
             SetOverlayMaterial(DamageType.default.DamageOverlayMaterial, DamageType.default.DamageOverlayTime, true);
         }
-        //return;        
     }
-    stop;    
 }
