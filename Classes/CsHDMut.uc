@@ -422,7 +422,7 @@ defaultproperties
   W_Array(26)=(PickupClass=class'KFMod.MKb42Pickup',Replacement=class'CsHDMut.W_MKb42Pickup')
   W_Array(27)=(PickupClass=class'KFMod.SCARMK17Pickup',Replacement=class'CsHDMut.W_SCARMK17Pickup')
   W_Array(28)=(PickupClass=class'KFMod.FNFAL_ACOG_Pickup',Replacement=class'CsHDMut.W_FNFAL_ACOG_Pickup')
-  W_Array(29)=(PickupClass=class'KFMod.SyringePickup',Replacement=class'CsHDMut.W_SyringePickup')
+//   W_Array(29)=(PickupClass=class'KFMod.SyringePickup',Replacement=class'CsHDMut.W_SyringePickup')
 
   MeshInfoSTD(0)=(M=Class'KFChar.ZombieClot',Mesh=SkeletalMesh'KF_Freaks_Trip.CLOT_Freak',Skins=(Combiner'KF_Specimens_Trip_T.clot_cmb'))
   MeshInfoSTD(1)=(M=Class'KFChar.ZombieGorefast',Mesh=SkeletalMesh'KF_Freaks_Trip.GoreFast_Freak',Skins=(Combiner'KF_Specimens_Trip_T.gorefast_cmb'))
